@@ -1,0 +1,17 @@
+{
+  "name": "partykit-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "partykit dev --live",
+    "deploy": "partykit deploy"
+  },
+  "dependencies": {
+    "inngest": "^3.40.1",
+    "partysocket": "^1.0.2"
+  },
+  "devDependencies": {
+    "partykit": "^0.0.110",
+    "typescript": "^5.5.4"
+  }
+}

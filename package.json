@@ -1,0 +1,19 @@
+{
+  "name": "ai-assistant-monorepo",
+  "private": true,
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "packageManager": "pnpm@10.7.1",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter nextjs-app dev\" \"pnpm --filter partykit-app dev\"",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "type-check": "pnpm -r type-check",
+    "deploy:party": "pnpm --filter partykit-app deploy"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.0.0"
+  }
+}

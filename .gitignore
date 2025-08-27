@@ -1,0 +1,74 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Output directories
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+.temp/
+
+# Package managers
+.pnpm-debug.log
+.yarn-integrity
+package-lock.json
+yarn.lock
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs
+*.log
+*.log.*
+*.out
+*.err
+
+# Coverage
+coverage/
+*.lcov
+
+# IDE / Editor
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS / System
+.DS_Store
+Thumbs.db
+
+# pnpm workspace
+.pnpm-debug.log
+.pnpmfile.cjs
+
+# Turbo / Nx / Monorepo build caches
+.turbo/
+nx-out/
+.nx/cache/
+
+# Storybook
+storybook-static/
+
+# Next.js (if used in some packages)
+.next/
+out/
+
+# Vitest / Jest
+.vitest/
+jest-html-reporters-*.html
+
+# Misc
+*.tsbuildinfo
