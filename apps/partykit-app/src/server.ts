@@ -17,16 +17,13 @@ export default class Main implements Party.Server {
     hibernate: true,
   };
 
-  messages: string[] = [];
   readonly party: Party.Room;
 
   constructor(party: Party.Room) {
     this.party = party;
   }
 
-  async onStart() {
-    this.messages = (await this.party.storage.get<string[]>('messages')) ?? [];
-  }
+  async onStart() {}
 
   async onRequest(req: Party.Request) {
     if (req.method === 'POST') {
@@ -47,10 +44,6 @@ export default class Main implements Party.Server {
             [...this.party.getConnections()].length
           } connections`
         );
-
-        // Store message in room storage (optional)
-        this.messages.push(messageBody.body);
-        await this.party.storage.put('messages', this.messages);
 
         return new Response(
           JSON.stringify({
@@ -73,7 +66,7 @@ export default class Main implements Party.Server {
     return new Response(
       JSON.stringify({
         room: this.party.id,
-        messages: this.messages.length,
+        messages: 0,
         connections: [...this.party.getConnections()].length,
       }),
       {
@@ -108,7 +101,6 @@ export default class Main implements Party.Server {
     try {
       const data = JSON.parse(message);
 
-      // You can add custom message handling here if needed
       // For now, we'll just log it
       console.log('Parsed message:', data);
     } catch (error) {
