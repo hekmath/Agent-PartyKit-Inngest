@@ -28,16 +28,22 @@ export default class Main implements Party.Server {
   async onRequest(req: Party.Request) {
     if (req.method === 'POST') {
       try {
-        const messageBody: { requestId: string; body: string } =
+        // Expect an envelope: { requestId: string, body: UIMessageChunk | any }
+        const messageBody: { requestId?: string; body: unknown } =
           await req.json();
 
         console.log(`📨 Room ${this.party.id} received:`, {
           requestId: messageBody.requestId,
-          body: messageBody.body.substring(0, 50) + '...',
+          summary:
+            typeof messageBody.body === 'string'
+              ? (messageBody.body as string).slice(0, 60) + '...'
+              : (messageBody.body as any)?.type
+              ? `chunk:${(messageBody.body as any).type}`
+              : 'object',
         });
 
-        // Broadcast to all connections in this room
-        this.party.broadcast(messageBody.body);
+        // Broadcast the full envelope so clients can filter by requestId
+        this.party.broadcast(JSON.stringify(messageBody));
 
         console.log(
           `📡 Room ${this.party.id} broadcasted to ${
@@ -92,16 +98,13 @@ export default class Main implements Party.Server {
   }
 
   async onMessage(message: string, connection: Party.Connection) {
-    // Handle any client-to-server messages if needed
+    // No client->server control msgs required now (cancel happens via HTTP)
     console.log(
       `📩 Message from ${connection.id} in room ${this.party.id}:`,
       message
     );
-
     try {
       const data = JSON.parse(message);
-
-      // For now, we'll just log it
       console.log('Parsed message:', data);
     } catch (error) {
       console.error('Error parsing message:', error);
